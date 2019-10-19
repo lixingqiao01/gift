@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pers.lixingqiao.com.gift.dao.UserRepository;
 import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
+import pers.lixingqiao.com.gift.until.JwtUntil;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class login {
             user.setGmt_modified(user.getGmt_create());
 
             userRepository.save(user);
-            return JSONResult.build(200,"注册成功",user);
+            return JSONResult.build(200,"注册成功", JwtUntil.sign(user.getUsername(),user.getUser_id()));
         } else {
             return JSONResult.build(200,"注册失败",null);
         }
@@ -65,7 +66,8 @@ public class login {
         User user = userRepository.getByUserWithUsername(username);
         if (user != null) {
             if (userRepository.getByUserWithUsernameAndPassword(username,password) != null) {
-                return JSONResult.ok(userRepository.getByUserWithUsernameAndPassword(username,password));
+                User signUser = userRepository.getByUserWithUsernameAndPassword(username,password);
+                return JSONResult.ok(JwtUntil.sign(signUser.getUsername(),signUser.getUser_id()));
             } else {
                 return JSONResult.build(200,"密码错误",null);
             }

@@ -1,8 +1,7 @@
 package pers.lixingqiao.com.gift.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -15,6 +14,18 @@ public class User {
     private String password;
     private Long gmt_create;
     private Long gmt_modified;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<BanquetNotes> notes;
+
+    public List<BanquetNotes> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<BanquetNotes> notes) {
+        this.notes = notes;
+    }
 
     public Integer getUser_id() {
         return user_id;
