@@ -37,7 +37,7 @@ public class login {
             user.setGmt_modified(user.getGmt_create());
 
             userRepository.save(user);
-            return JSONResult.build(200,"注册成功", JwtUntil.sign(user.getUsername(),user.getUser_id()));
+            return JSONResult.build(200,"注册成功", JwtUntil.build(user.getUsername(),user.getUser_id()));
         } else {
             return JSONResult.build(200,"注册失败",null);
         }
@@ -67,11 +67,21 @@ public class login {
         if (user != null) {
             if (userRepository.getByUserWithUsernameAndPassword(username,password) != null) {
                 User signUser = userRepository.getByUserWithUsernameAndPassword(username,password);
-                return JSONResult.ok(JwtUntil.sign(signUser.getUsername(),signUser.getUser_id()));
+                return JSONResult.ok(JwtUntil.build(signUser.getUsername(),signUser.getUser_id()));
             } else {
                 return JSONResult.build(200,"密码错误",null);
             }
         }
         return JSONResult.build(200,"当前用户没有注册",null);
+    }
+
+    @PostMapping(path = "/relogin")
+    @ResponseBody
+    public  JSONResult relogin(@RequestParam(name = "token") String token) {
+        String verify_token = JwtUntil.userVerify(token);
+        if (verify_token !=null) {
+            return JSONResult.ok(verify_token);
+        }
+        return JSONResult.build(200,"验证过期，请重新登录",null);
     }
 }
