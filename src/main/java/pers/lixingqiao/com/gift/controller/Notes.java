@@ -23,7 +23,7 @@ public class Notes {
     public JSONResult create(@RequestParam(name = "token") String token,
                              @RequestParam(name = "name") String name) {
         //验证token
-        if (JwtUntil.verify(token)) {
+        if (JwtUntil.userVerify(token)) {
             BanquetNotes banquetNotes = new BanquetNotes();
             banquetNotes.setGmt_create(System.currentTimeMillis());
             banquetNotes.setGmt_modified(banquetNotes.getGmt_create());

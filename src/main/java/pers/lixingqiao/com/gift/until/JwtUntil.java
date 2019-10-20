@@ -74,9 +74,9 @@ public class JwtUntil {
     }
 
     /*
-    * 验证
+    * refreshToken
     * */
-    public  static String userVerify(String token) {
+    public  static String refreshToken(String token) {
         String[] list = token.split("half");
         if (verify(list[0]) && verify(list[1])) {
             //两个token都还没有过期
@@ -94,11 +94,23 @@ public class JwtUntil {
     }
 
     /*
+    * 验证组装token
+    * */
+    public static boolean userVerify(String token) {
+        String[] token_list = token.split("half");
+        if (verify(token_list[0]) == false && verify(token_list[1]) == false) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
     * 根据token获取user_id
     * */
     public static Integer getIDByToken(String token) {
+        String first_token = token.split("half")[0];
         try {
-            DecodedJWT decodedJWT = JWT.decode(token);
+            DecodedJWT decodedJWT = JWT.decode(first_token);
             return decodedJWT.getClaim("user_id").asInt();
         } catch (JWTDecodeException decodeExcept) {
             return null;
@@ -109,8 +121,9 @@ public class JwtUntil {
     * 根据token获取用户名：username
     * */
     public  static String getUsernameByToken(String token) {
+        String first_token = token.split("half")[0];
         try {
-            DecodedJWT decodedJWT = JWT.decode(token);
+            DecodedJWT decodedJWT = JWT.decode(first_token);
             return decodedJWT.getClaim("username").asString();
         } catch (JWTDecodeException decodeExcept) {
             return null;

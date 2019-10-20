@@ -62,7 +62,7 @@ public class login {
     @PostMapping(path = "/login")
     @ResponseBody
     public JSONResult loginUsername(@RequestParam(name = "username") String username,
-                     @RequestParam(name = "password") String password) {
+                                    @RequestParam(name = "password") String password) {
         User user = userRepository.getByUserWithUsername(username);
         if (user != null) {
             if (userRepository.getByUserWithUsernameAndPassword(username,password) != null) {
@@ -78,7 +78,7 @@ public class login {
     @PostMapping(path = "/relogin")
     @ResponseBody
     public  JSONResult relogin(@RequestParam(name = "token") String token) {
-        String verify_token = JwtUntil.userVerify(token);
+        String verify_token = JwtUntil.refreshToken(token);
         if (verify_token !=null) {
             return JSONResult.ok(verify_token);
         }
