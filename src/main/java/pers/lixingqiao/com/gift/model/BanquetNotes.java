@@ -3,6 +3,7 @@ package pers.lixingqiao.com.gift.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class BanquetNotes {
@@ -13,6 +14,8 @@ public class BanquetNotes {
     private Integer user_id;
     private Long gmt_create;
     private Long gmt_modified;
+
+//    @ManyToMany
 
     public Integer getNotes_id() {
         return notes_id;
