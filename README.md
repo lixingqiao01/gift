@@ -16,3 +16,16 @@
 
 ### 在学习中遇到的问题  
 
+-  在JwtUntil中token过期时间过短的问题
+> 原代码
+```java
+private static final long EXPIRE_TIME = 3 * 30 * 24 * 60 * 60 * 1000;
+```
+
+> 修改后的代码
+```java
+private static final long EXPIRE_TIME = 3 * 30 * 24 * 60 * 60 * 1000l;
+```
+> 初步猜想  
+> 在原代码中所有相乘的数为Int型，相乘后的结果也为Int型，导致最终的结果也为Int型，直接导致结果超出Int型的显示范围
+> 在修改后的代码中为Int * long = long 结果为long类型，数据在显示范围类
