@@ -9,6 +9,7 @@ import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -83,5 +84,19 @@ public class login {
             return JSONResult.ok(verify_token);
         }
         return JSONResult.build(200,"验证过期，请重新登录",null);
+    }
+
+    @PostMapping(path = "/getUserInfo")
+    @ResponseBody
+    public  JSONResult getUserInfo(@RequestParam(name = "token") String token) {
+        //验证token
+        if (JwtUntil.userVerify(token)) {
+            //更具token获取用户id
+            Integer user_id = JwtUntil.getIDByToken(token);
+            //根据user_id查询用户
+            User user = userRepository.getUserByUserId(user_id);
+            return JSONResult.ok(user);
+        }
+        return JSONResult.build(200,"token已经过期，请重新登录",null);
     }
 }
