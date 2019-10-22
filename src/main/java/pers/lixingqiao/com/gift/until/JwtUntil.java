@@ -9,6 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.xml.crypto.Data;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ public class JwtUntil {
     * 设置过期时间 15分钟
     * */
 //    @Value("jwtUntil.exprotTime")
-    private static final long EXPIRE_TIME = 15 * 24 * 60 * 60 * 1000 ;
+    private static final long EXPIRE_TIME = 3 * 30 * 24 * 60 * 60 * 1000l;
 
     /*
     * 设置token私钥  UUID
