@@ -18,6 +18,7 @@ public class Notes {
     @Autowired
     private BanquetNotesRepository banquetNotesRepository;
 
+    //创建Notes
     @PostMapping(path = "/create")
     @ResponseBody
     public JSONResult create(@RequestParam(name = "token") String token,
@@ -35,4 +36,6 @@ public class Notes {
             return JSONResult.build(200,"token验证不通过",null);
         }
     }
+
+
 }

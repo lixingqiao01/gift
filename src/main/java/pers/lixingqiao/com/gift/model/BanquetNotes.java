@@ -1,9 +1,7 @@
 package pers.lixingqiao.com.gift.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class BanquetNotes {
@@ -14,6 +12,18 @@ public class BanquetNotes {
     private Integer user_id;
     private Long gmt_create;
     private Long gmt_modified;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "notes_id")
+    private List<Capital> capitals;
+
+    public List<Capital> getCapitals() {
+        return capitals;
+    }
+
+    public void setCapitals(List<Capital> capitals) {
+        this.capitals = capitals;
+    }
 
     public Integer getNotes_id() {
         return notes_id;
