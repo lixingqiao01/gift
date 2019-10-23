@@ -82,4 +82,17 @@ public class User {
     public void setGmt_modified(Long gmt_modified) {
         this.gmt_modified = gmt_modified;
     }
+
+    public User(Integer user_id,String name, String username,Integer gender,Long gmt_create,Long gmt_modified) {
+        this.user_id = user_id;
+        this.name = name;
+        this.username = username;
+        this.gender = gender;
+        this.gmt_create = gmt_create;
+        this.gmt_modified = gmt_modified;
+    }
+
+    public  User(){
+
+    }
 }

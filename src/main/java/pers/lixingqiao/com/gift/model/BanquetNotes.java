@@ -15,8 +15,6 @@ public class BanquetNotes {
     private Long gmt_create;
     private Long gmt_modified;
 
-//    @ManyToMany
-
     public Integer getNotes_id() {
         return notes_id;
     }

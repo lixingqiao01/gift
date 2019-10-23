@@ -4,13 +4,16 @@ import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pers.lixingqiao.com.gift.dao.BanquetNotesRepository;
 import pers.lixingqiao.com.gift.dao.UserRepository;
+import pers.lixingqiao.com.gift.model.BanquetNotes;
 import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/api")
@@ -18,6 +21,8 @@ public class login {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BanquetNotesRepository banquetNotesRepository;
 
 
 
@@ -95,6 +100,8 @@ public class login {
             Integer user_id = JwtUntil.getIDByToken(token);
             //根据user_id查询用户
             User user = userRepository.getUserByUserId(user_id);
+            List<BanquetNotes> banquetNotes = banquetNotesRepository.getBanquetByUserId(user.getUser_id());
+            user.setNotes(banquetNotes);
             return JSONResult.ok(user);
         }
         return JSONResult.build(200,"token已经过期，请重新登录",null);

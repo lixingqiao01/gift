@@ -2,7 +2,8 @@
 [maven仓库](https://mvnrepository.com/artifact/com.auth0/java-jwt/3.8.3)   
 [Java实现基于token认证](https://blog.csdn.net/Eye_Me/article/details/88720585)  
 [UUID在线生成器](http://www.uuid.online)  
-[@ManyToMany关系的理解和使用](https://wycode.cn/2018-04-19-many_to_many.html)
+[@ManyToMany关系的理解和使用](https://wycode.cn/2018-04-19-many_to_many.html)  
+[jpa只查指定的字段](https://blog.csdn.net/asd54090/article/details/91042658)
 
 ###  git 操作  
 
