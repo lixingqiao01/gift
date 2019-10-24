@@ -101,9 +101,13 @@ public class login {
             Integer user_id = JwtUntil.getIDByToken(token);
             //根据user_id查询用户
             User user = userRepository.getUserByUserId(user_id);
-            List<BanquetNotes> banquetNotes = banquetNotesRepository.getBanquetByUserId(user.getUser_id());
-            user.setNotes(banquetNotes);
-            return JSONResult.ok(user);
+            if (user == null) {
+                return JSONResult.build(200,"无法查找到当前用户，请重新登录",null);
+            } else  {
+                List<BanquetNotes> banquetNotes = banquetNotesRepository.getBanquetByUserId(user.getUser_id());
+                user.setNotes(banquetNotes);
+                return JSONResult.ok(user);
+            }
         }
         return JSONResult.build(200,"token已经过期，请重新登录",null);
     }

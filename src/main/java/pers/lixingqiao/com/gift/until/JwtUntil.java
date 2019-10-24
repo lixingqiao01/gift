@@ -70,6 +70,7 @@ public class JwtUntil {
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
             return true;
         } catch (Exception exception) {
+            exception.printStackTrace();
             return false;
         }
     }
@@ -99,10 +100,7 @@ public class JwtUntil {
     * */
     public static boolean userVerify(String token) {
         String[] token_list = token.split("half");
-        if (verify(token_list[0]) == false && verify(token_list[1]) == false) {
-            return false;
-        }
-        return true;
+        return verify(token_list[0]) || verify(token_list[1]);
     }
 
     /*
