@@ -57,17 +57,19 @@ public class CapitalController {
                 cUser.setUser_id(JwtUntil.getIDByToken(token));
                 cUserRepo.save(cUser);
                 //保存cuser否获取cuserid
-                System.out.println(cUserRepo.searchIdByCuserName(name));
+//                System.out.println(cUserRepo.searchIdByCuserName(name));
 
                 Capital capital = new Capital();
                 capital.setMoney(money);
                 capital.setNotes_id(notes_id);
                 capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
                 capitalRepo.save(capital);
+
+                capital.setcUser(cUser);
                 Map<String,Object> map = new HashMap<>();
                 map.put("cuser",cUser);
                 map.put("capital",capital);
-                return JSONResult.ok(map);
+                return JSONResult.ok(capital);
             } else {
                 //查询到这个人则获取
                 Integer cuser_id = cUserRepo.searchIdByCuserName(name);
@@ -78,11 +80,11 @@ public class CapitalController {
                 capitalRepo.save(capital);
 
                 CUser cUser = cUserRepo.searchById(cuser_id);
-
+                capital.setcUser(cUser);
                 Map<String,Object> map = new HashMap<>();
                 map.put("cuser",cUser);
                 map.put("capital",capital);
-                return JSONResult.ok(map);
+                return JSONResult.ok(capital);
             }
         } else {
             return JSONResult.build(200,"当前登录验证已过期，请重新登录",null);

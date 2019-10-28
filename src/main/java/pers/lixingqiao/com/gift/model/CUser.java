@@ -12,7 +12,6 @@ public class CUser {
     private Integer user_id;
     private String remark;
     private String phoneNumber;
-    private Integer notes_id;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "cuser_id")
@@ -56,14 +55,6 @@ public class CUser {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Integer getNotes_id() {
-        return notes_id;
-    }
-
-    public void setNotes_id(Integer notes_id) {
-        this.notes_id = notes_id;
     }
 
     public List<Capital> getCapitals() {

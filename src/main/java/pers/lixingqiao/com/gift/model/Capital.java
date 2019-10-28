@@ -11,6 +11,18 @@ public class Capital {
     private Integer notes_id;
     private Integer cuser_id;
 
+    @OneToOne
+    @JoinColumn(name = "cuser_id")
+    private CUser cUser;
+
+    public CUser getcUser() {
+        return cUser;
+    }
+
+    public void setcUser(CUser cUser) {
+        this.cUser = cUser;
+    }
+
     public Integer getCapital_id() {
         return capital_id;
     }
