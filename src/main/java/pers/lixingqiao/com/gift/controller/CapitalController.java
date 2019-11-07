@@ -65,26 +65,27 @@ public class CapitalController {
                 capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
                 capitalRepo.save(capital);
 
-                capital.setcUser(cUser);
+//                capital.setcUser(cUser);
                 Map<String,Object> map = new HashMap<>();
                 map.put("cuser",cUser);
                 map.put("capital",capital);
-                return JSONResult.ok(capital);
+                return JSONResult.ok(map);
             } else {
                 //查询到这个人则获取
-                Integer cuser_id = cUserRepo.searchIdByCuserName(name);
+//                 = cUsers[0].;
+
+                CUser cUser = cUsers.get(0);
+//                Integer cuser_id = cUsers.get(0).getUser_id();
                 Capital capital = new Capital();
                 capital.setMoney(money);
                 capital.setNotes_id(notes_id);
-                capital.setCuser_id(cuser_id);
+                capital.setCuser_id(cUser.getCuser_id());
                 capitalRepo.save(capital);
-
-                CUser cUser = cUserRepo.searchById(cuser_id);
-                capital.setcUser(cUser);
+//                capital.setcUser(cUser);
                 Map<String,Object> map = new HashMap<>();
                 map.put("cuser",cUser);
                 map.put("capital",capital);
-                return JSONResult.ok(capital);
+                return JSONResult.ok(map);
             }
         } else {
             return JSONResult.build(200,"当前登录验证已过期，请重新登录",null);
