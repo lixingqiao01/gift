@@ -13,9 +13,9 @@ public class CUser {
     private String remark;
     private String phoneNumber;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cuser_id")
-    private List<Capital> capitals;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "capital_id")
+//    private List<Capital> capitals;
 
     public Integer getCuser_id() {
         return cuser_id;
@@ -57,13 +57,13 @@ public class CUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Capital> getCapitals() {
-        return capitals;
-    }
-
-    public void setCapitals(List<Capital> capitals) {
-        this.capitals = capitals;
-    }
+//    public List<Capital> getCapitals() {
+//        return capitals;
+//    }
+//
+//    public void setCapitals(List<Capital> capitals) {
+//        this.capitals = capitals;
+//    }
 
 
 

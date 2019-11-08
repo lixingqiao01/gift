@@ -29,4 +29,10 @@ private static final long EXPIRE_TIME = 3 * 30 * 24 * 60 * 60 * 1000l;
 ```
 > 初步猜想  
 > 在原代码中所有相乘的数为Int型，相乘后的结果也为Int型，导致最终的结果也为Int型，直接导致结果超出Int型的显示范围
-> 在修改后的代码中为Int * long = long 结果为long类型，数据在显示范围类
+> 在修改后的代码中为Int * long = long 结果为long类型，数据在显示范围类  
+
+- **在实体中添加一个实体对象最为属性时需要使用@Transient注解，告诉JPA当前实体不需要映射到数据表，一旦不添加这个注解就会报错**
+```java
+@Transient
+private CUser cUser;
+```

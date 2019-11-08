@@ -105,7 +105,7 @@ public class login {
                 return JSONResult.build(200,"无法查找到当前用户，请重新登录",null);
             } else  {
                 List<BanquetNotes> banquetNotes = banquetNotesRepository.getBanquetByUserId(user.getUser_id());
-                user.setNotes(banquetNotes);
+//                user.setNotes(banquetNotes);
                 return JSONResult.ok(user);
             }
         }

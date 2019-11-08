@@ -2,10 +2,7 @@ package pers.lixingqiao.com.gift.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pers.lixingqiao.com.gift.dao.CUserRepo;
 import pers.lixingqiao.com.gift.dao.CapitalRepo;
 import pers.lixingqiao.com.gift.model.CUser;
@@ -13,10 +10,7 @@ import pers.lixingqiao.com.gift.model.Capital;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(path = "/capital")
@@ -62,7 +56,7 @@ public class CapitalController {
                 Capital capital = new Capital();
                 capital.setMoney(money);
                 capital.setNotes_id(notes_id);
-                capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
+//                capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
                 capitalRepo.save(capital);
 
 //                capital.setcUser(cUser);
@@ -79,7 +73,7 @@ public class CapitalController {
                 Capital capital = new Capital();
                 capital.setMoney(money);
                 capital.setNotes_id(notes_id);
-                capital.setCuser_id(cUser.getCuser_id());
+//                capital.setCuser_id(cUser.getCuser_id());
                 capitalRepo.save(capital);
 //                capital.setcUser(cUser);
                 Map<String,Object> map = new HashMap<>();
@@ -90,5 +84,13 @@ public class CapitalController {
         } else {
             return JSONResult.build(200,"当前登录验证已过期，请重新登录",null);
         }
+    }
+
+    @GetMapping(value = "/capitalList")
+    @ResponseBody
+    public JSONResult searchCapitalList(@RequestParam(name = "notesId") Integer notesId){
+//        capitalRepo.findById(capital_id);
+        List<Capital> capitals = capitalRepo.searchByNotesId(notesId);
+        return JSONResult.ok(capitals);
     }
 }

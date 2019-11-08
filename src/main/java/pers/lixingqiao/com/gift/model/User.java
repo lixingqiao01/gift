@@ -15,29 +15,29 @@ public class User {
     private Long gmt_create;
     private Long gmt_modified;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<BanquetNotes> notes;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private List<BanquetNotes> notes;
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private List<CUser> cUsers;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<CUser> cUsers;
-
-    public List<CUser> getcUsers() {
-        return cUsers;
-    }
-
-    public void setcUsers(List<CUser> cUsers) {
-        this.cUsers = cUsers;
-    }
-
-    public List<BanquetNotes> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<BanquetNotes> notes) {
-        this.notes = notes;
-    }
+//    public List<CUser> getcUsers() {
+//        return cUsers;
+//    }
+//
+//    public void setcUsers(List<CUser> cUsers) {
+//        this.cUsers = cUsers;
+//    }
+//
+//    public List<BanquetNotes> getNotes() {
+//        return notes;
+//    }
+//
+//    public void setNotes(List<BanquetNotes> notes) {
+//        this.notes = notes;
+//    }
 
     public Integer getUser_id() {
         return user_id;
