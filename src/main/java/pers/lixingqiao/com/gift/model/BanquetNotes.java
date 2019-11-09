@@ -13,17 +13,17 @@ public class BanquetNotes {
     private Long gmt_create;
     private Long gmt_modified;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "notes_id")
-    private List<Capital> capitals;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "notes_id")
+//    private List<Capital> capitals;
+//
+//    public List<Capital> getCapitals() {
+//        return capitals;
+//    }
 
-    public List<Capital> getCapitals() {
-        return capitals;
-    }
-
-    public void setCapitals(List<Capital> capitals) {
-        this.capitals = capitals;
-    }
+//    public void setCapitals(List<Capital> capitals) {
+//        this.capitals = capitals;
+//    }
 
     public Integer getNotes_id() {
         return notes_id;

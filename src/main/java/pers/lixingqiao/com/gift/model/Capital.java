@@ -10,10 +10,15 @@ public class Capital {
     private float money;
     private Integer notes_id;
     private Integer cuser_id;
+    private Integer BOP;
 
-    //资金和联系人是一个多对一的关系，多个资金可以对应一个人
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "cuser_id")
+    public Integer getBOP() {
+        return BOP;
+    }
+
+    public void setBOP(Integer BOP) {
+        this.BOP = BOP;
+    }
 
     @Transient
     private CUser cUser;

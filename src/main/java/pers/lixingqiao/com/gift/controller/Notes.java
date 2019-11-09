@@ -11,6 +11,8 @@ import pers.lixingqiao.com.gift.model.BanquetNotes;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/notes")
 public class Notes {
@@ -37,5 +39,17 @@ public class Notes {
         }
     }
 
+    @PostMapping(value = "/list")
+    @ResponseBody
+    public JSONResult list(@RequestParam(name = "token") String token) {
+        if (JwtUntil.userVerify(token)) {
+            //token验证成功否获取userID
+            Integer user_id = JwtUntil.getIDByToken(token);
+            List<BanquetNotes> banquetNotesList = banquetNotesRepository.getBanquetByUserId(user_id);
+            return JSONResult.ok(banquetNotesList);
+        } else  {
+            return JSONResult.build(2001,"登录已失效，请重新登录",null);
+        }
+    }
 
 }

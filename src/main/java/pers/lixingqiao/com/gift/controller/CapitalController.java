@@ -86,11 +86,16 @@ public class CapitalController {
         }
     }
 
-    @GetMapping(value = "/capitalList")
+    @PostMapping(value = "/capitalList")
     @ResponseBody
-    public JSONResult searchCapitalList(@RequestParam(name = "notesId") Integer notesId){
+    public JSONResult searchCapitalList(@RequestParam(name = "notesId") Integer notesId,
+                                        @RequestParam(name = "token") String token){
 //        capitalRepo.findById(capital_id);
-        List<Capital> capitals = capitalRepo.searchByNotesId(notesId);
-        return JSONResult.ok(capitals);
+        if (JwtUntil.userVerify(token)) {
+            List<Capital> capitals = capitalRepo.searchByNotesId(notesId);
+            return JSONResult.ok(capitals);
+        } else  {
+            return JSONResult.build(200,"当前登录验证已过期，请重新登录",null);
+        }
     }
 }
