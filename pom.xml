@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>gift</name>
     <description>gift</description>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -22,6 +23,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -66,9 +73,18 @@
             <artifactId>java-jwt</artifactId>
             <version>3.8.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <finalName>gift</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

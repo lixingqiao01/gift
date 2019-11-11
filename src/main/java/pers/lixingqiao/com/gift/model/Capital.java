@@ -3,6 +3,7 @@ package pers.lixingqiao.com.gift.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Capital")
 public class Capital {
     @Id
     @GeneratedValue(generator = "JDBC")

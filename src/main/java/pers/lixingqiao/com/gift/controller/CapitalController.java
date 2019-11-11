@@ -56,7 +56,7 @@ public class CapitalController {
                 Capital capital = new Capital();
                 capital.setMoney(money);
                 capital.setNotes_id(notes_id);
-//                capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
+                capital.setCuser_id(cUserRepo.searchIdByCuserName(name));
                 capitalRepo.save(capital);
 
 //                capital.setcUser(cUser);

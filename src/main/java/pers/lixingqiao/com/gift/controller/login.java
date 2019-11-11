@@ -1,9 +1,12 @@
 package pers.lixingqiao.com.gift.controller;
 
+import com.oracle.tools.packager.IOUtils;
 import org.apache.commons.collections4.IterableUtils;
+//import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pers.lixingqiao.com.gift.dao.BanquetNotesRepository;
 import pers.lixingqiao.com.gift.dao.UserRepository;
 import pers.lixingqiao.com.gift.model.BanquetNotes;
@@ -11,9 +14,13 @@ import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(path = "/api")
@@ -112,5 +119,36 @@ public class login {
         return JSONResult.build(200,"token已经过期，请重新登录",null);
     }
 
-//    @
+//    @/Users/bsj-mac1
+//    @PostMapping(path = "/uploadImage")
+//    @ResponseBody
+//    public JSONResult uploadImage(@RequestParam(name = "image") MultipartFile file) {String oldName = file.getOriginalFilename();
+//        String imgType = oldName.substring(oldName.lastIndexOf("."), oldName.length());
+//        String name = UUID.randomUUID().toString()+imgType; // 图片名
+//        String realpath = "/Users/bsj-mac1/uploadImage";
+//        String fileName = writeUploadFile(file, realpath, name);
+//        System.out.println(fileName);
+//        return JSONResult.ok();
+//    }
+
+//    public static String writeUploadFile(MultipartFile file, String realpath, String fileName) {
+//        File fileDir = new File(realpath);
+//        if (!fileDir.exists())
+//            fileDir.mkdirs();
+//
+//        InputStream input = null;
+//        FileOutputStream fos = null;
+//        try {
+//            input = file.getInputStream();
+//            fos = new FileOutputStream(realpath + "/" + fileName);
+//            IOUtils.copy(input, fos);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        } finally {
+//            IOUtils.closeQuietly(input);
+//            IOUtils.closeQuietly(fos);
+//        }
+//        return fileName;
+//    }
 }
