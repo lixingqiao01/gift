@@ -1,26 +1,20 @@
 package pers.lixingqiao.com.gift.controller;
 
-import com.oracle.tools.packager.IOUtils;
 import org.apache.commons.collections4.IterableUtils;
-//import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import pers.lixingqiao.com.gift.dao.BanquetNotesRepository;
 import pers.lixingqiao.com.gift.dao.UserRepository;
 import pers.lixingqiao.com.gift.model.BanquetNotes;
 import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
+import pers.lixingqiao.com.gift.until.Tool;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.Collections;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping(path = "/api")
@@ -63,9 +57,10 @@ public class login {
 
     @GetMapping(path = "/all")
     @ResponseBody
-    public  JSONResult getAllUsers() {
+    public  JSONResult getAllUsers(HttpServletRequest request) {
         List<User> list = IterableUtils.toList(userRepository.findAll());
-
+        String path = request.getSession().getServletContext().getRealPath("");
+        System.out.println(path);
         return JSONResult.ok(list);
     }
 
