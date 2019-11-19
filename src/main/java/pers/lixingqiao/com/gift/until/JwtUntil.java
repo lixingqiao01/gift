@@ -99,8 +99,11 @@ public class JwtUntil {
     * 验证组装token
     * */
     public static boolean userVerify(String token) {
-        String[] token_list = token.split("half");
-        return verify(token_list[0]) || verify(token_list[1]);
+        if (token != "" && token != null) {
+            String[] token_list = token.split("half");
+            return verify(token_list[0]) || verify(token_list[1]);
+        }
+        return false;
     }
 
     /*

@@ -1,5 +1,8 @@
 package pers.lixingqiao.com.gift.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +13,9 @@ import pers.lixingqiao.com.gift.model.BanquetNotes;
 import pers.lixingqiao.com.gift.model.User;
 import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
-import pers.lixingqiao.com.gift.until.Tool;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -70,8 +72,12 @@ public class login {
 
     @PostMapping(path = "/login")
     @ResponseBody
-    public JSONResult loginUsername(@RequestParam(name = "username") String username,
-                                    @RequestParam(name = "password") String password) {
+    public JSONResult loginUsername(@RequestBody String requestJson, HttpServletRequest request, HttpServletResponse response) {
+
+        JSONObject jsonObject = JSON.parseObject(requestJson);
+        String username = (String) jsonObject.get("username");
+        String password = (String) jsonObject.get("password");
+
         User user = userRepository.getByUserWithUsername(username);
         if (user != null) {
             if (userRepository.getByUserWithUsernameAndPassword(username,password) != null) {
@@ -82,6 +88,7 @@ public class login {
             }
         }
         return JSONResult.build(200,"当前用户没有注册",null);
+//        return JSONResult.ok();
     }
 
     @PostMapping(path = "/relogin")
