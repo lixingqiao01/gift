@@ -18,6 +18,7 @@ public class LogCostInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("authorization");
+        String path = httpServletRequest.getRequestURI();
         if (JwtUntil.userVerify(token)) {
             return true;
         }
