@@ -36,3 +36,9 @@ private static final long EXPIRE_TIME = 3 * 30 * 24 * 60 * 60 * 1000l;
 @Transient
 private CUser cUser;
 ```
+
+
+
+### 在开发中遇到的问题
+
+- 多线程操作数据库的问题
