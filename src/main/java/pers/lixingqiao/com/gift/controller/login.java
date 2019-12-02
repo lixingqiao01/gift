@@ -102,19 +102,19 @@ public class login {
 
     @PostMapping(path = "/getUserInfo")
     @ResponseBody
-    public  JSONResult getUserInfo(@RequestParam(name = "token") String token) {
+    public  JSONResult getUserInfo(HttpServletRequest httpServletRequest, HttpServletResponse response) {
+        String token = httpServletRequest.getHeader("authorization");
         //验证token
         if (JwtUntil.userVerify(token)) {
-            //更具token获取用户id
+            //根据token获取用户id
             Integer user_id = JwtUntil.getIDByToken(token);
             //根据user_id查询用户
             User user = userRepository.getUserByUserId(user_id);
             if (user == null) {
-                return JSONResult.build(200,"无法查找到当前用户，请重新登录",null);
+                return JSONResult.build(200,"无法查找到当前用户，请重新登录",null,token);
             } else  {
-                List<BanquetNotes> banquetNotes = banquetNotesRepository.getBanquetByUserId(user.getUser_id());
-//                user.setNotes(banquetNotes);
-                return JSONResult.ok(user);
+//                return JSONResult.ok(user);
+                return JSONResult.build(JSONResult.JsonResultStatus.SUCCESS.status,JSONResult.JsonResultStatus.SUCCESS.msg,user,token);
             }
         }
         return JSONResult.build(200,"token已经过期，请重新登录",null);

@@ -12,13 +12,15 @@ public class JSONResult {
     private String msg;
     private Object response;
     private boolean success;
+    private String token;
 
     public enum JsonResultStatus{
         SUCCESS("请求成功",10000),
         UNREGIST("用户还未注册",10001),
         LOGIN_ERROR("密码错误",10002),
+        TOKEN_EXPIRE("token即将过期",10003),
 
-        PERMISSIONS_ERROR("没有权限访问",99999);
+        PERMISSIONS_ERROR("没有权限访问或登录已经过期",99999);
 
         public String msg;
         public Integer status;
@@ -67,6 +69,12 @@ public class JSONResult {
     public static JSONResult build(Integer status, String msg, Object data) {
         return new JSONResult(status, msg, data);
     }
+    public static JSONResult build(Integer status, String msg, Object data,String token) {
+        if (JwtUntil.verifyTokenWillExpire(token) == null) {
+            return new JSONResult(status, msg, data);
+        }
+        return new JSONResult(JsonResultStatus.TOKEN_EXPIRE.status,JsonResultStatus.TOKEN_EXPIRE.msg,data,JwtUntil.verifyTokenWillExpire(token));
+    }
 
     public static JSONResult ok(Object data) {
         return new JSONResult(data);
@@ -92,6 +100,14 @@ public class JSONResult {
         return new JSONResult(555, msg, null);
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public JSONResult() {
     }
 
@@ -99,6 +115,13 @@ public class JSONResult {
         this.status = status;
         this.msg = msg;
         this.response = data;
+    }
+
+    public JSONResult(Integer status, String msg,Object data, String token){
+        this.status = status;
+        this.msg = msg;
+        this.response = data;
+        this.token = token;
     }
 
     public JSONResult(Object data) {

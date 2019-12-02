@@ -20,12 +20,13 @@ public class LogCostInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         String token = httpServletRequest.getHeader("authorization");
         String path = httpServletRequest.getRequestURI();
-        if (JwtUntil.userVerify(token)) {
-            return true;
-        }
         PrintWriter writer = null;
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json;charset=utf-8");
+
+        if (JwtUntil.userVerify(token)) {
+            return true;
+        }
         try {
             writer = httpServletResponse.getWriter();
             JSONObject res = new JSONObject();

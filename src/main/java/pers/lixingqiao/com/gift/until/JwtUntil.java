@@ -107,6 +107,20 @@ public class JwtUntil {
     }
 
     /*
+    * 验证token是否即将过期
+    * true:即将过期
+    * false:还未过期
+    * */
+    public static String verifyTokenWillExpire(String token) {
+        String[] token_list = token.split("half");
+        String earlyToken = token_list[1];
+        if (verify(earlyToken)) {
+            return null;
+        }
+        return build(getUsernameByToken(earlyToken),getIDByToken(earlyToken));
+    }
+
+    /*
     * 根据token获取user_id
     * */
     public static Integer getIDByToken(String token) {
