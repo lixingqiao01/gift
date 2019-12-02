@@ -72,7 +72,7 @@ public class login {
     @PostMapping(path = "/login")
     @ResponseBody
     public JSONResult loginUsername(@RequestBody String requestJson, HttpServletRequest request, HttpServletResponse response) {
-
+        System.out.print(requestJson);
         JSONObject jsonObject = JSON.parseObject(requestJson);
         String username = (String) jsonObject.get("username");
         String password = (String) jsonObject.get("password");
