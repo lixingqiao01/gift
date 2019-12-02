@@ -5,12 +5,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+
 public class JSONResult {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private Integer status;
     private String msg;
     private Object response;
     private boolean success;
+
+    public enum JsonResultStatus{
+        SUCCESS("请求成功",10000),
+        UNREGIST("用户还未注册",10001),
+        LOGIN_ERROR("密码错误",10002),
+
+        PERMISSIONS_ERROR("没有权限访问",99999);
+
+        public String msg;
+        public Integer status;
+        JsonResultStatus(String msg, int status) {
+            this.msg = msg;
+            this.status = status;
+        }
+    }
 
     public static ObjectMapper getMAPPER() {
         return MAPPER;

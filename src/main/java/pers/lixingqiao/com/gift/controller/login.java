@@ -45,7 +45,6 @@ public class login {
             user.setName(name);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modified(user.getGmt_create());
-
             userRepository.save(user);
             return JSONResult.build(200,"注册成功", JwtUntil.build(user.getUsername(),user.getUser_id()));
         } else {
@@ -82,13 +81,13 @@ public class login {
         if (user != null) {
             if (userRepository.getByUserWithUsernameAndPassword(username,password) != null) {
                 User signUser = userRepository.getByUserWithUsernameAndPassword(username,password);
-                return JSONResult.ok(JwtUntil.build(signUser.getUsername(),signUser.getUser_id()));
+//                return JSONResult.ok(JwtUntil.build(signUser.getUsername(),signUser.getUser_id()));
+                return JSONResult.build(JSONResult.JsonResultStatus.SUCCESS.status, JSONResult.JsonResultStatus.SUCCESS.msg,JwtUntil.build(signUser.getUsername(),signUser.getUser_id()));
             } else {
-                return JSONResult.build(200,"密码错误",null);
+                return JSONResult.build(JSONResult.JsonResultStatus.LOGIN_ERROR.status, JSONResult.JsonResultStatus.LOGIN_ERROR.msg,null);
             }
         }
-        return JSONResult.build(200,"当前用户没有注册",null);
-//        return JSONResult.ok();
+        return JSONResult.build(JSONResult.JsonResultStatus.UNREGIST.status, JSONResult.JsonResultStatus.UNREGIST.msg,null);
     }
 
     @PostMapping(path = "/relogin")

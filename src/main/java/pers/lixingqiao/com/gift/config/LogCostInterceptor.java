@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import pers.lixingqiao.com.gift.until.JSONResult;
 import pers.lixingqiao.com.gift.until.JwtUntil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +29,8 @@ public class LogCostInterceptor implements HandlerInterceptor {
         try {
             writer = httpServletResponse.getWriter();
             JSONObject res = new JSONObject();
-            res.put("status",403);
-            res.put("msg","没有权限访问");
+            res.put("status", JSONResult.JsonResultStatus.PERMISSIONS_ERROR.status);
+            res.put("msg",JSONResult.JsonResultStatus.PERMISSIONS_ERROR.msg);
             res.put("response", "");
             res.put("ok",true);
             res.put("success",false);
